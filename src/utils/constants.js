@@ -1,0 +1,4 @@
+//actions
+export const SET_AUTHED_USER = 'SET_AUTHED_USER';
+export const RECEIVED_QUESTIONS = 'RECEIVED_QUESTIONS';
+export const RECEIVED_USERS = 'RECEIVED_USERS';

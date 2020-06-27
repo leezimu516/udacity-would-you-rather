@@ -8,7 +8,7 @@ import {
 export function getInitalData() {
     return promise.all(
         [_getUsers(), _getQuestions()]
-    ).then(([user, questions]) => ({
+    ).then(([users, questions]) => ({
         users,
         questions
     }))
