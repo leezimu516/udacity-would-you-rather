@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {formatPool, formatDate} from "../utils/helpers";
+import { Link } from 'react-router-dom'
 
 class Question extends Component {
     constructor() {
@@ -11,7 +12,7 @@ class Question extends Component {
     }
 
     handleSubmit = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
 
         const {dispatch, question, authedUserReducer} = this.props;
         const answer = this.state.answer;
@@ -69,7 +70,9 @@ class Question extends Component {
                         </div>
 
                         {/*<div className='question-button'>*/}
-                        <button id='submit-question' onClick={this.handleSubmit}>Submit</button>
+                        <Link to={`/questions/${id}`} >
+                            <button id='submit-question' onClick={this.handleSubmit}>Submit</button>
+                        </Link>
                         {/*</div>*/}
                     </form>
                 </div>
