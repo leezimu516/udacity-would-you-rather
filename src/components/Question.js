@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {formatPool, formatDate} from "../utils/helpers";
 import { Link } from 'react-router-dom'
+import { saveQuestionAnswer } from '../utils/api'
+import {handleSumbitAnswer} from "../actions/questions";
 
 class Question extends Component {
     constructor() {
@@ -16,8 +18,10 @@ class Question extends Component {
 
         const {dispatch, question, authedUserReducer} = this.props;
         const answer = this.state.answer;
-        // console.log(question, authedUserReducer, answer)
-        console.log(answer)
+        const qid = question.id;
+        const authedUser = authedUserReducer;
+        dispatch(handleSumbitAnswer({ authedUser, qid, answer }))
+
     }
 
     onChangeValue = (e) => {
@@ -61,19 +65,19 @@ class Question extends Component {
                         <h2>Would You Rather ...</h2>
 
                         <div>
-                            <input type="radio" id="optionOne" name={id} value={optionOneText}/>
+                            <input type="radio" id="optionOne" name={id} value='optionOne'/>
                             <label htmlFor={optionOneText}>{optionOneText}</label>
                         </div>
                         <div>
-                            <input type="radio" id="optionTwo" name={id} value={optionTwoText}/>
+                            <input type="radio" id="optionTwo" name={id} value='optionTwo'/>
                             <label htmlFor={optionTwoText}>{optionTwoText}</label>
                         </div>
 
-                        {/*<div className='question-button'>*/}
+                        <div className='question-button'>
                         <Link to={`/questions/${id}`} >
                             <button id='submit-question' onClick={this.handleSubmit}>Submit</button>
                         </Link>
-                        {/*</div>*/}
+                        </div>
                     </form>
                 </div>
             </div>
@@ -85,7 +89,6 @@ class Question extends Component {
 
 function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, {id}) {
     const question = questionsReducer[id];
-
     return {
         authedUserReducer,
         question: formatPool(question, usersReducer),

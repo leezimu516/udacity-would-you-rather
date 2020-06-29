@@ -7,7 +7,7 @@ export function formatDate(timestamp) {
 export function formatPool(question, authors) {
     const {id, author, timestamp, optionOne, optionTwo} = question;
     const {name, avatarURL} = authors[author];
-
+    console.log(optionOne)
     return {
         name,
         id,

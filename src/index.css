@@ -81,7 +81,6 @@ li {
   margin: 0 auto;
   border: 1px solid #dad7d7;
   border-radius: 3px;
-  cursor: pointer;
   flex-direction: column;
 
 }
@@ -94,7 +93,6 @@ li {
   margin: 0 auto;
   border: 1px solid #dad7d7;
   border-radius: 3px;
-  cursor: pointer;
   flex-direction: column;
 
 }
@@ -122,14 +120,13 @@ li {
 }
 
 .question-button {
-  /*display: flex;*/
-  /*align-self: baseline;*/
   width: 100%;
 }
+
+
 #submit-question {
     background-color: greenyellow;
     width: 100%;
-
 }
 
 .answer {
