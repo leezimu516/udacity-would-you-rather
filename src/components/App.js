@@ -22,7 +22,7 @@ class App extends Component {
                         ? <h1>loading</h1> :
                         <div>
                             <Route path='/' exact component={Dashboard}/>
-                            <Route path='/questions/:question_id' exact component={AnswerPoll}/>
+                            <Route path='/questions/:id' exact component={AnswerPoll}/>
                             {/*<Route path='/' exact component={Dashboard}/>*/}
 
                         </div>

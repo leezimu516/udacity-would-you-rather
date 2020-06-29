@@ -56,7 +56,7 @@ class Question extends Component {
                          alt={`Avatar of ${name}`}
                         // className='avatar'
                     />
-                    <form className="question-column-right" style={{backgroundColor: '#ddd'}}
+                    <form className="question-column-right"
                           onChange={this.onChangeValue}>
                         <h2>Would You Rather ...</h2>
 
