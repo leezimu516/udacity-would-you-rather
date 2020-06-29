@@ -1,4 +1,4 @@
-import {RECEIVED_QUESTIONS, SUBMIT_ANSWER} from '../utils/constants'
+import {ADD_QUESTION, RECEIVED_QUESTIONS, SUBMIT_ANSWER} from '../utils/constants'
 
 export function questionsReducer(state = {}, action) {
     switch (action.type) {
@@ -19,6 +19,12 @@ export function questionsReducer(state = {}, action) {
                     }
 
                 }
+            };
+
+        case ADD_QUESTION:
+            return {
+                ...state,
+                [action.question.id]: action.question
             };
 
         default:

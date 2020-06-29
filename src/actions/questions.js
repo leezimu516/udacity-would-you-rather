@@ -1,5 +1,5 @@
-import { RECEIVED_QUESTIONS, SUBMIT_ANSWER } from '../utils/constants'
-import {saveQuestionAnswer} from "../utils/api";
+import {RECEIVED_QUESTIONS, SUBMIT_ANSWER, ADD_QUESTION} from '../utils/constants'
+import {saveQuestion, saveQuestionAnswer} from "../utils/api";
 
 export function receivedQuestions(questions) {
     return {
@@ -8,7 +8,7 @@ export function receivedQuestions(questions) {
     }
 }
 
-export function submitAnswer({ authedUser, qid, answer }) {
+function submitAnswer({authedUser, qid, answer}) {
     return {
         type: SUBMIT_ANSWER,
         authedUser,
@@ -18,15 +18,38 @@ export function submitAnswer({ authedUser, qid, answer }) {
 }
 
 
-export function handleSumbitAnswer (info) {
-  return (dispatch) => {
-    dispatch(submitAnswer(info))
-
-    return saveQuestionAnswer(info)
-      .catch((e) => {
-        console.warn('Error in submit answer: ', e)
+export function handleSumbitAnswer(info) {
+    return (dispatch) => {
         dispatch(submitAnswer(info))
-        alert('The was an error submitting answer. Try again.')
-      })
-  }
+
+        return saveQuestionAnswer(info)
+            .catch((e) => {
+                console.warn('Error in submit answer: ', e)
+                dispatch(submitAnswer(info))
+                alert('The was an error submitting answer. Try again.')
+            })
+    }
+}
+
+function addNewQuestion(question) {
+    return {
+        type: ADD_QUESTION,
+        question
+    }
+}
+
+export function handleAddQuestion(info) {
+    return (dispatch) => {
+        // dispatch(addNewQuestion(info))
+
+        return saveQuestion(info)
+            .then((question) => dispatch(addNewQuestion(question)))
+            .catch((e) => {
+                console.log("error in adding question: ", e)
+                dispatch(addNewQuestion(info))
+                alert('The was an error adding question. Try again.')
+            })
+    }
+
+
 }

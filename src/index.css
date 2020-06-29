@@ -74,6 +74,18 @@ li {
   text-decoration: none;
 }
 
+.divider {
+  width:100%;
+  text-align:center;
+  border-bottom: 1px solid #000;
+  line-height:0.1em;
+  margin:10px 0 10px
+}
+
+.divider span {
+  background:#fff;
+  padding:0 10px;
+}
 .avatar {
   height: 50px;
   border-radius: 25px;
@@ -111,6 +123,23 @@ li {
 
 }
 
+.question-column {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+}
+
+#newquestion-header {
+  align-items: flex-start;
+  display: flex;
+  margin: 5px;
+}
+
+textarea {
+  width: 90%;
+}
+
 .question-column-left {
   width: 30%;
   margin: 10px;
@@ -131,7 +160,7 @@ li {
 }
 
 
-#submit-question {
+.submit-question {
     background-color: greenyellow;
     width: 100%;
 }

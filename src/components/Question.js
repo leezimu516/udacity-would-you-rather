@@ -75,7 +75,7 @@ class Question extends Component {
 
                         <div className='question-button'>
                         <Link to={`/questions/${id}`} >
-                            <button id='submit-question' onClick={this.handleSubmit}>Submit</button>
+                            <button className='submit-question' onClick={this.handleSubmit}>Submit</button>
                         </Link>
                         </div>
                     </form>
