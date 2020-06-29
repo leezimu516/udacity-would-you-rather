@@ -54,7 +54,14 @@ a {
 }
 
 .nav li:first-child {
-  padding-left: 0;
+  padding-left: 100px;
+}
+
+.nav .nav-user {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  padding-right: 100px;
 }
 
 ul {
