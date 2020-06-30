@@ -55,11 +55,15 @@ class Question extends Component {
 
 
                 <div className='question-row'>
-                    <img className="question-column-left"
+                    <div className="question-column-left">
+                       <img
                          src={avatar}
                          alt={`Avatar of ${name}`}
-                        // className='avatar'
+                        className='avatar'
                     />
+
+                    </div>
+
                     <form className="question-column-right"
                           onChange={this.onChangeValue}>
                         <h2>Would You Rather ...</h2>
