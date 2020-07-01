@@ -15,7 +15,6 @@ class Question extends Component {
 
     handleSubmit = (e) => {
         // e.preventDefault();
-
         const {dispatch, question, authedUserReducer} = this.props;
         const answer = this.state.answer;
         const qid = question.id;
@@ -43,7 +42,6 @@ class Question extends Component {
         }
 
         const {id, name, timestamp, optionOneText, optionTwoText, avatar,} = question;
-
         // console.log(id, name, timestamp, optionOneText, optionTwoText, avatar);
         // console.log(name)
         return (
@@ -78,9 +76,17 @@ class Question extends Component {
                         </div>
 
                         <div className='question-button'>
-                        <Link to={`/questions/${id}`} >
-                            <button className='submit-question' onClick={this.handleSubmit}>Submit</button>
-                        </Link>
+                            <Link to={
+                                {
+                                    pathname: `/questions/${id}`,
+                                    pollProps: {isPoll: this.props.isPoll}
+                                }}>
+                                <button className='submit-question' onClick={this.handleSubmit} >View Poll</button>
+                            </Link>
+
+                            {/*<Link to={`/questions/${id}`}>*/}
+                                {/*<button className='submit-question'>View Poll</button>*/}
+                            {/*</Link>*/}
                         </div>
                     </form>
                 </div>
@@ -91,7 +97,7 @@ class Question extends Component {
     }
 }
 
-function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, {id}) {
+function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, {id, isPoll}) {
     const question = questionsReducer[id];
     return {
         authedUserReducer,

@@ -89,9 +89,9 @@ class AnswerPoll extends Component {
     }
 }
 
-function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, props) {
+function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, {id}) {
     // console.log(props.match.params)
-    const {id} = props.match.params
+    // const {id} = props.match.params
     const question = questionsReducer[id];
 
     return {

@@ -48,12 +48,12 @@ class Dashboard extends Component {
                     {this.state.isAnswered ?
                         userAnsweredQuestionIds.map((id) => (
                             <li key={id}>
-                                <Question id={id}/>
+                                <Question id={id} isPoll={true}/>
                             </li>
                         )) :
                         userUnAnsweredQuestionIds.map((id) => (
                             <li key={id}>
-                                <Question id={id}/>
+                                <Question id={id} isPoll={false}/>
                             </li>
                         ))
                     }

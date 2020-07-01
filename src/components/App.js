@@ -8,6 +8,7 @@ import AnswerPoll from "./AnswerPoll";
 import Nav from "./Nav";
 import LeaderBoard from "./LeaderBoard";
 import NewQuestion from "./NewQuestion";
+import Poll from "./Poll";
 
 class App extends Component {
 
@@ -25,7 +26,8 @@ class App extends Component {
                         ? <h1>loading</h1> :
                         <div>
                             <Route path='/' exact component={Dashboard}/>
-                            <Route path='/questions/:id' exact component={AnswerPoll}/>
+                            {/*<Route path='/questions/:id' exact component={AnswerPoll}/>*/}
+                            <Route path='/questions/:id' exact component={Poll}/>
                             <Route path='/leaderboard' exact component={LeaderBoard}/>
                             <Route path='/new' exact component={NewQuestion}/>
                         </div>
