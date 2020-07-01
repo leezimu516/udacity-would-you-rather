@@ -8,6 +8,7 @@ class Dashboard extends Component {
         // console.log(this.props)
         return (
             <div>
+
                 <h3 className='center'>Questions</h3>
                 <ul className='dashboard-list'>
                     {this.props.questionIds.map((id) => (
@@ -25,9 +26,9 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps({ questionsReducer }) {
+function mapStateToProps({questionsReducer}) {
     return {
-        questionIds: Object.keys(questionsReducer).sort((a,b) => questionsReducer[b].timestamp - questionsReducer[a].timestamp)
+        questionIds: Object.keys(questionsReducer).sort((a, b) => questionsReducer[b].timestamp - questionsReducer[a].timestamp)
         // questionIds: questionsReducer
     }
 }

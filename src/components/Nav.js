@@ -3,10 +3,11 @@ import {NavLink} from 'react-router-dom'
 
 class Nav extends Component {
     render() {
+        console.log(this.props)
         return (
 
             <nav className='nav'>
-                <ul>
+                <ul className='nav-ul'>
                     <li>
                         <NavLink to='/' exact activeClassName='active'>
                             Home
@@ -27,7 +28,12 @@ class Nav extends Component {
                     <div className='nav-user'>
                         <li>
                             Hello {this.props.user}
+
                         </li>
+                        <img
+                         src={this.props.avatar}
+                         alt={`Avatar of ${this.props.user}`}
+                        className='nav-avatar'/>
 
                         <li>
                             <NavLink to='/logout' activeClassName='active'>

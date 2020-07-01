@@ -20,8 +20,7 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <Nav user={this.props.user}/>
-
+                    <Nav user={this.props.user} avatar={this.props.avatar}/>
                     {this.props.loading === true
                         ? <h1>loading</h1> :
                         <div>
@@ -44,14 +43,18 @@ class App extends Component {
 function mapStateToProps({authedUserReducer, usersReducer}) {
     const userObj = usersReducer[authedUserReducer]
     let user = null;
+    let avatar = null
     if (userObj) {
         user = userObj.name
+        avatar = userObj.avatarURL
+
     }
 
-    console.log(usersReducer[authedUserReducer])
+    console.log(userObj, avatar)
     return {
         loading: authedUserReducer === null,
-        user
+        user,
+        avatar
     }
 }
 
