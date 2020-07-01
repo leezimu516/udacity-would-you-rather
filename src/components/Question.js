@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {formatPool, formatDate} from "../utils/helpers";
-import { Link } from 'react-router-dom'
-import { saveQuestionAnswer } from '../utils/api'
+import {Link} from 'react-router-dom'
+import {saveQuestionAnswer} from '../utils/api'
 import {handleSumbitAnswer} from "../actions/questions";
 
 class Question extends Component {
@@ -19,7 +19,7 @@ class Question extends Component {
         const answer = this.state.answer;
         const qid = question.id;
         const authedUser = authedUserReducer;
-        dispatch(handleSumbitAnswer({ authedUser, qid, answer }))
+        dispatch(handleSumbitAnswer({authedUser, qid, answer}))
 
     }
 
@@ -54,41 +54,82 @@ class Question extends Component {
 
                 <div className='question-row'>
                     <div className="question-column-left">
-                       <img
-                         src={avatar}
-                         alt={`Avatar of ${name}`}
-                        className='avatar'
-                    />
+                        <img
+                            src={avatar}
+                            alt={`Avatar of ${name}`}
+                            className='avatar'
+                        />
 
                     </div>
 
-                    <form className="question-column-right"
-                          onChange={this.onChangeValue}>
-                        <h2>Would You Rather ...</h2>
 
-                        <div>
-                            <input type="radio" id="optionOne" name={id} value='optionOne'/>
-                            <label htmlFor={optionOneText}>{optionOneText}</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="optionTwo" name={id} value='optionTwo'/>
-                            <label htmlFor={optionTwoText}>{optionTwoText}</label>
-                        </div>
+                    {this.props.isPoll ?
+                        <form className="question-column-right"
+                              onChange={this.onChangeValue}>
+                            <h2>Would You Rather ...</h2>
 
-                        <div className='question-button'>
-                            <Link to={
-                                {
-                                    pathname: `/questions/${id}`,
-                                    pollProps: {isPoll: this.props.isPoll}
-                                }}>
-                                <button className='submit-question' onClick={this.handleSubmit} >View Poll</button>
-                            </Link>
 
-                            {/*<Link to={`/questions/${id}`}>*/}
-                                {/*<button className='submit-question'>View Poll</button>*/}
-                            {/*</Link>*/}
-                        </div>
-                    </form>
+                            <div>
+                                ...{optionOneText} ...
+                            </div>
+                            <div className='question-button'>
+                                <Link to={
+                                    {
+                                        pathname: `/questions/${id}`,
+                                        pollProps: {isPoll: this.props.isPoll, isSubmit: this.props.isSubmit}
+                                    }}>
+                                    <button className='submit-question'>View Poll</button>
+                                </Link>
+
+                            </div>
+                        </form>
+
+                        :
+
+                        <form className="question-column-right"
+                              onChange={this.onChangeValue}>
+                            <h2>Would You Rather ...</h2>
+
+                            {this.props.isSubmit ?
+                                <div>
+                                    <div>
+                                        <input type="radio" id="optionOne" name={id} value='optionOne'/>
+                                        <label htmlFor={optionOneText}>{optionOneText}</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="optionTwo" name={id} value='optionTwo'/>
+                                        <label htmlFor={optionTwoText}>{optionTwoText}</label>
+                                    </div>
+
+                                </div> :
+
+                                <div>
+                                    ...{optionOneText} ...
+                                </div>
+
+                            }
+
+
+                            <div className='question-button'>
+                                <Link to={
+                                    {
+                                        pathname: `/questions/${id}`,
+                                        pollProps: {isPoll: this.props.isPoll, isSubmit: this.props.isSubmit}
+                                    }}>
+                                    {console.log('issubmit', this.props.isSubmit,  this.props.isPoll)}
+                                    {this.props.isSubmit ?
+                                        <button className='submit-question' onClick={this.handleSubmit}>View
+                                            Poll</button>
+                                        :
+                                        <button className='submit-question' >View
+                                            Poll</button>
+                                    }
+                                </Link>
+                            </div>
+                        </form>
+                    }
+
+
                 </div>
             </div>
 

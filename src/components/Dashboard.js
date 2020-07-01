@@ -53,7 +53,7 @@ class Dashboard extends Component {
                         )) :
                         userUnAnsweredQuestionIds.map((id) => (
                             <li key={id}>
-                                <Question id={id} isPoll={false}/>
+                                <Question id={id} isPoll={false} isSubmit={false}/>
                             </li>
                         ))
                     }
