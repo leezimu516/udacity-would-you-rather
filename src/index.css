@@ -55,6 +55,14 @@ a {
   align-items: center;
 }
 
+.nav-answer ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-decoration: none;
+  align-items: center;
+}
+
 .nav li:first-child {
   padding-left: 100px;
 }
