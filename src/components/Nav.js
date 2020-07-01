@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom'
 class Nav extends Component {
     render() {
         console.log(this.props)
+        const {user, avatar} = this.props
         return (
 
             <nav className='nav'>
@@ -24,23 +25,27 @@ class Nav extends Component {
                             Leader Board
                         </NavLink>
                     </li>
+                    {user === null ? null
+                        :
+                        <div className='nav-user'>
 
-                    <div className='nav-user'>
-                        <li>
-                            Hello {this.props.user}
+                            <li>
+                                Hello {user}
 
-                        </li>
-                        <img
-                         src={this.props.avatar}
-                         alt={`Avatar of ${this.props.user}`}
-                        className='nav-avatar'/>
+                            </li>
+                            <img
+                                src={avatar}
+                                alt={`Avatar of ${user}`}
+                                className='nav-avatar'/>
 
-                        <li>
-                            <NavLink to='/logout' activeClassName='active'>
-                                Logout
-                            </NavLink>
-                        </li>
-                    </div>
+                            <li>
+                                <NavLink to='/logout' activeClassName='active'>
+                                    Logout
+                                </NavLink>
+                            </li>
+
+                        </div>
+                    }
 
 
                 </ul>

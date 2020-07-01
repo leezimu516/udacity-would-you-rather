@@ -122,6 +122,19 @@ li {
 
 }
 
+.login {
+  width: 100%;
+  max-width: 590px;
+  padding: 10px;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+  flex-direction: column;
+  justify-content: space-around;
+
+}
+
 .answer-container {
   width: 100%;
   max-width: 590px;
