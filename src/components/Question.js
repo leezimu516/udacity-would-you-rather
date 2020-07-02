@@ -4,6 +4,9 @@ import {formatPool, formatDate} from "../utils/helpers";
 import {Link} from 'react-router-dom'
 import {saveQuestionAnswer} from '../utils/api'
 import {handleSumbitAnswer} from "../actions/questions";
+import NewQuestion from "./NewQuestion";
+import PrivateRoute from "./PrivateRoute";
+import Login from "./Login";
 
 class Question extends Component {
     constructor() {
@@ -33,20 +36,25 @@ class Question extends Component {
     render() {
         // console.log('question component', this.props);
 
-        const {question} = this.props;
-        // console.log('question: ', question);
+        const {question, id} = this.props;
+        console.log('question: ', question);
         if (question === null) {
             return (
-                <p>this question doesnt exist</p>
+                <div>
+                    <p>this question doesnt exist</p>
+                    {/*<PrivateRoute  authed={false} path='/logout' exact={true} component={Login}/>*/}
+                </div>
+
             )
         }
 
-        const {id, name, timestamp, optionOneText, optionTwoText, avatar,} = question;
+        const { name, timestamp, optionOneText, optionTwoText, avatar,} = question;
         // console.log(id, name, timestamp, optionOneText, optionTwoText, avatar);
-        // console.log(name)
+        console.log(id)
         return (
 
             <div className='question'>
+                { id===undefined && <PrivateRoute  authed={false} path='/logout' exact={true} component={Login} />}
                 <div className='question-row'>
                     <span>{name} asks:</span>
                 </div>
@@ -139,11 +147,20 @@ class Question extends Component {
 }
 
 function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, {id, isPoll}) {
-    const question = questionsReducer[id];
-    return {
-        authedUserReducer,
-        question: formatPool(question, usersReducer),
+    if (id !== undefined) {
+        // alert(1111)
+        const question = questionsReducer[id];
+        return {
+            authedUserReducer,
+            question: formatPool(question, usersReducer),
 
+        }
+    } else {
+        return {
+            authedUserReducer,
+            question: null,
+
+        }
     }
 }
 

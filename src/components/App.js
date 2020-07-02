@@ -20,22 +20,32 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.props.loading)
+        const {loading, user, avatar, signedIn} = this.props
+        let authed = false;
+        if (user !== '') {
+            authed = true
+        }
+        console.log(loading, user, authed)
         return (
             <BrowserRouter>
                 <div className="App">
-                    <Nav user={this.props.user} avatar={this.props.avatar}/>
-                    {console.log(this.props)}
-                    {this.props.loading === true
-                        ? <h1>loading</h1> :
+                    <Nav user={user} avatar={avatar}/>
+                    {signedIn === false
+                        ? <Login/> :
                         <div>
-                            <Route path='/' exact component={Dashboard}/>
-                            <Route path='/questions/:id' exact component={AnswerPoll}/>
-                            <Route path='/questions/:id' exact component={Poll}/>
-                            <Route path='/leaderboard' exact component={LeaderBoard}/>
-                            <Route path='/new' exact component={NewQuestion}/>
-                            <Route path='/logout' exact component={Login} />
-                            {/*<PrivateRoute path='/' exact component={Dashboard} authed={this.props.user}/>*/}
+                            {/*<Route path='/' exact component={Dashboard}/>*/}
+                            {/*/!*<Route path='/questions/:id' exact component={AnswerPoll}/>*!/*/}
+                            {/*<Route path='/questions/:id' exact component={Poll}/>*/}
+                            {/*<Route path='/leaderboard' exact component={LeaderBoard}/>*/}
+                            {/*<Route path='/new' exact component={NewQuestion}/>*/}
+                            {/*<Route path='/logout' exact component={Login}/>*/}
+
+                            <PrivateRoute  authed={authed} path='/' exact={true} component={Dashboard} />
+                            <PrivateRoute  authed={authed} path='/questions/:id' exact={true} component={Poll} />
+                            <PrivateRoute  authed={authed} path='/leaderboard' exact={true} component={LeaderBoard} />
+                            <PrivateRoute  authed={authed} path='/new' exact={true} component={NewQuestion} />
+                            {/*<Route path='/logout' exact component={Login}/>*/}
+
                         </div>
                     }
 
@@ -50,7 +60,7 @@ class App extends Component {
 
 function mapStateToProps({authedUserReducer, usersReducer}) {
     const userObj = usersReducer[authedUserReducer]
-    let user = null;
+    let user = '';
     let avatar = null
     if (userObj) {
         user = userObj.name
@@ -62,7 +72,8 @@ function mapStateToProps({authedUserReducer, usersReducer}) {
     return {
         loading: authedUserReducer === null,
         user,
-        avatar
+        avatar,
+        signedIn: authedUserReducer !== null,
     }
 }
 

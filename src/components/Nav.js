@@ -1,7 +1,16 @@
 import React, {Component} from 'react'
 import {NavLink} from 'react-router-dom'
+import {setAuthedUser} from "../actions/authedUser";
+import { connect } from 'react-redux';
+
 
 class Nav extends Component {
+
+    handleLogout = () => { // Handle logout button click
+        const { dispatch } = this.props;
+        dispatch(setAuthedUser(null));
+    }
+
     render() {
         console.log(this.props)
         const {user, avatar} = this.props
@@ -25,7 +34,7 @@ class Nav extends Component {
                             Leader Board
                         </NavLink>
                     </li>
-                    {user === null ? null
+                    {user === '' ? null
                         :
                         <div className='nav-user'>
 
@@ -39,9 +48,8 @@ class Nav extends Component {
                                 className='nav-avatar'/>
 
                             <li>
-                                <NavLink to='/logout' activeClassName='active'>
-                                    Logout
-                                </NavLink>
+                                <span onClick={this.handleLogout}>Logout</span>
+
                             </li>
 
                         </div>
@@ -55,4 +63,4 @@ class Nav extends Component {
 
 }
 
-export default Nav;
+export default connect()(Nav);

@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {connect} from 'react-redux';
 import Question from "./Question";
 import {setAuthedUser} from "../actions/authedUser";
+import Poll from "./Poll";
+import PrivateRoute from "./PrivateRoute";
 
 class Login extends Component {
 
@@ -12,18 +14,45 @@ class Login extends Component {
         }
     }
 
+
+
     componentWillMount() {
-        const {dispatch} = this.props
-        console.log('logout')
-        dispatch(setAuthedUser(''))
+        // const {dispatch} = this.props
+        // console.log('logout')
+        // dispatch(setAuthedUser(null))
     }
 
-    login = (e) => {
-        e.preventDefault();
+    login = (e, from) => {
+        // e.preventDefault();
         const {dispatch} = this.props;
         const user = this.state.loginName
         dispatch(setAuthedUser(user))
-        this.props.history.push('/')
+
+        console.log(from, user)
+        // this.props.history.push(from.pathname)
+        if (from !== null) {
+            // console.log(from.from.pathname)
+            // this.props.history.push('/leaderboard')
+            // this.props.history.push('/questions/am8ehyc8byjqgar0jgpub9')
+            // this.props.history.push(from.from.pathname)
+            // this.props.history.push({
+            //     pathname: from.from.pathname,
+            //     state: {isAuthed: true}
+            // })
+
+        } else {
+            // this.props.history.push('/')
+        }
+
+    }
+
+
+    login = () => {
+        // e.preventDefault();
+        const {dispatch} = this.props;
+        const user = this.state.loginName
+        dispatch(setAuthedUser(user))
+
     }
 
 
@@ -35,7 +64,9 @@ class Login extends Component {
 
     render() {
         const {users, userIds} = this.props;
-        console.log(users, userIds);
+        // const {from} = this.props.location.state
+        // console.log(this.props.location.state)
+        console.log(users, userIds, this.props);
 
         return (
 
@@ -56,6 +87,7 @@ class Login extends Component {
 
 
                 <br/>
+                {/*<button type="submit" className="submit-question" onClick={(e) => this.login(e, this.props.location.state)}>Sign in</button>*/}
                 <button type="submit" className="submit-question" onClick={this.login}>Sign in</button>
             </form>
         );

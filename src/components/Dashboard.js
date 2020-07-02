@@ -84,25 +84,33 @@ function mapStateToProps({questionsReducer, authedUserReducer, usersReducer}) {
     //     }
     // ).map(([id, question]) => ({[id]:question})));
 
-
-    const orderQuestions = (input) => (
-        Object.keys(input).sort((a, b) => input[b].timestamp - input[a].timestamp)
-    );
-
-
-    const userAnsweredQuestionIdsRaw = Object.keys(usersReducer[authedUserReducer].answers);
-    const questionIds =  orderQuestions(questionsReducer);
-
-    const userUnAnsweredQuestionIds = questionIds.filter((id) => !(userAnsweredQuestionIdsRaw.includes(id)))
-    const userAnsweredQuestionIds = questionIds.filter((id) => (userAnsweredQuestionIdsRaw.includes(id)))
-    console.log('userAnsweredQuestionIds: ', userAnsweredQuestionIds, userUnAnsweredQuestionIds, questionIds)
+    if (authedUserReducer !== '') {
+        const orderQuestions = (input) => (
+            Object.keys(input).sort((a, b) => input[b].timestamp - input[a].timestamp)
+        );
 
 
-    return {
-        questionIds,
-        userAnsweredQuestionIds,
-        userUnAnsweredQuestionIds
+        const userAnsweredQuestionIdsRaw = Object.keys(usersReducer[authedUserReducer].answers);
+        const questionIds =  orderQuestions(questionsReducer);
+
+        const userUnAnsweredQuestionIds = questionIds.filter((id) => !(userAnsweredQuestionIdsRaw.includes(id)))
+        const userAnsweredQuestionIds = questionIds.filter((id) => (userAnsweredQuestionIdsRaw.includes(id)))
+        console.log('userAnsweredQuestionIds: ', userAnsweredQuestionIds, userUnAnsweredQuestionIds, questionIds)
+
+
+        return {
+            questionIds,
+            userAnsweredQuestionIds,
+            userUnAnsweredQuestionIds
+        }
+    } else {
+        return {
+            questionIds: [],
+            userAnsweredQuestionIds:[],
+            userUnAnsweredQuestionIds:[]
+        }
     }
+
 }
 
 export default connect(mapStateToProps)(Dashboard)
