@@ -18,7 +18,12 @@ class Question extends Component {
         const answer = this.state.answer;
         const qid = question.id;
         const authedUser = authedUserReducer;
-        dispatch(handleSumbitAnswer({authedUser, qid, answer}))
+        if (answer === '') {
+            alert('Select at least one')
+        } else {
+            dispatch(handleSumbitAnswer({authedUser, qid, answer}))
+
+        }
 
     }
 
@@ -43,13 +48,13 @@ class Question extends Component {
             )
         }
 
-        const { name, timestamp, optionOneText, optionTwoText, avatar,} = question;
+        const {name, timestamp, optionOneText, optionTwoText, avatar,} = question;
         // console.log(id, name, timestamp, optionOneText, optionTwoText, avatar);
         console.log(id)
         return (
 
             <div className='question'>
-                { id===undefined &&  <div>
+                {id === undefined && <div>
                     <p>this question doesnt exist</p>
                 </div>}
                 <div className='question-row'>
@@ -118,21 +123,41 @@ class Question extends Component {
 
 
                             <div className='question-button'>
-                                <Link to={
-                                    {
-                                        pathname: `/questions/${id}`,
-                                        pollProps: {isPoll: this.props.isPoll, isSubmit: this.props.isSubmit}
-                                    }}>
-                                    {console.log('issubmit', this.props.isSubmit,  this.props.isPoll)}
-                                    {this.props.isSubmit ?
-                                        <button className='submit-question' onClick={this.handleSubmit}>View
-                                            Poll</button>
-                                        :
-                                        <button className='submit-question' >View
-                                            Poll</button>
-                                    }
-                                </Link>
+                                {this.state.answer === '' ?
+                                    <div>
+                                        <Link to={
+                                            {
+                                                pathname: `/questions/${id}`,
+                                                pollProps: {isPoll: false, isSubmit: false}
+                                            }}>
+                                            {console.log('issubmit', this.props.isSubmit, this.props.isPoll)}
+                                            {this.props.isSubmit ?
+                                                <button className='submit-question' onClick={this.handleSubmit}>View
+                                                    Poll</button>
+                                                :
+                                                <button className='submit-question'>View
+                                                    Poll</button>
+                                            }
+                                        </Link>
+                                    </div>
+                                    :
+                                    <Link to={
+                                        {
+                                            pathname: `/questions/${id}`,
+                                            pollProps: {isPoll: this.props.isPoll, isSubmit: this.props.isSubmit}
+                                        }}>
+                                        {console.log('issubmit', this.props.isSubmit, this.props.isPoll)}
+                                        {this.props.isSubmit ?
+                                            <button className='submit-question' onClick={this.handleSubmit}>View
+                                                Poll</button>
+                                            :
+                                            <button className='submit-question'>View
+                                                Poll</button>
+                                        }
+                                    </Link>
+                                }
                             </div>
+
                         </form>
                     }
 
