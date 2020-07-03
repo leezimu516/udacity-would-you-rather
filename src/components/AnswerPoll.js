@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link} from "react-router-dom";
 import {formatPool} from "../utils/helpers";
 import {ProgressBar} from "react-bootstrap";
-import {usersReducer} from "../reducers/usersReducer";
 
 class AnswerPoll extends Component {
 
@@ -16,10 +14,10 @@ class AnswerPoll extends Component {
         }
         console.log(question)
         const {id, name, optionOneVotes, optionOneText, optionTwoVotes, optionTwoText, totalVotes, avatar,} = question;
-        // const voteOne = parseInt(optionOneVotes / totalVotes * 100);
-        // const votetwo = parseInt(optionTwoVotes / totalVotes * 100);
-        const voteOne = `${parseInt(optionOneVotes / totalVotes * 100)}%`;
-        const voteTwo = `${parseInt(optionTwoVotes / totalVotes * 100)}%`;
+        const voteOne = parseInt(optionOneVotes / totalVotes * 100);
+        const voteTwo = parseInt(optionTwoVotes / totalVotes * 100);
+        // const voteOne = `${parseInt(optionOneVotes / totalVotes * 100)}%`;
+        // const voteTwo = `${parseInt(optionTwoVotes / totalVotes * 100)}%`;
 
 
         // console.log(id, name, optionOneVotes, optionOneText, optionTwoVotes, optionTwoText, totalVotes, avatar, voteOne, voteTwo);
@@ -52,12 +50,13 @@ class AnswerPoll extends Component {
                             }
 
                             <span>Would you Rather {optionOneText}?</span>
-                            <div className='bar'>
-                                <ProgressBar
-                                    style={{width: voteOne, backgroundColor: 'greenyellow'}}>
-                                    <span className='sr-only'>{voteOne} Complete</span>
-                                </ProgressBar>
-                            </div>
+                            {/*<div className='bar'>*/}
+                                {/*<ProgressBar*/}
+                                    {/*style={{width: voteOne, backgroundColor: 'greenyellow'}}>*/}
+                                    {/*<span className='sr-only'>{voteOne} Complete</span>*/}
+                                {/*</ProgressBar>*/}
+                            {/*</div>*/}
+                            <ProgressBar now={voteOne} label={`${voteOne}%`} />
                             {optionOneVotes} out of {totalVotes} votes
 
                         </div>
@@ -68,12 +67,13 @@ class AnswerPoll extends Component {
                                 userAnswer === 'optionTwo' &&
                                 <span className='answer-circle'>Your Vote</span>
                             }
-                            <div className='bar'>
-                                <ProgressBar className='bar'
-                                             style={{width: voteTwo, backgroundColor: 'greenyellow'}}>
-                                    <span className='sr-only'>{voteTwo} Complete</span>
-                                </ProgressBar>
-                            </div>
+                            {/*<div className='bar'>*/}
+                                {/*<ProgressBar className='bar'*/}
+                                             {/*style={{width: voteTwo, backgroundColor: 'greenyellow'}}>*/}
+                                    {/*<span className='sr-only'>{voteTwo} Complete</span>*/}
+                                {/*</ProgressBar>*/}
+                            {/*</div>*/}
+                            <ProgressBar now={voteTwo} label={`${voteTwo}%`} />
                             {optionTwoVotes} out of {totalVotes} votes
 
                         </div>

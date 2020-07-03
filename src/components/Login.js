@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import Question from "./Question";
 import {setAuthedUser} from "../actions/authedUser";
-import Poll from "./Poll";
-import PrivateRoute from "./PrivateRoute";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 class Login extends Component {
 
@@ -12,38 +10,6 @@ class Login extends Component {
         this.state = {
             loginName: ''
         }
-    }
-
-
-
-    componentWillMount() {
-        // const {dispatch} = this.props
-        // console.log('logout')
-        // dispatch(setAuthedUser(null))
-    }
-
-    login = (e, from) => {
-        // e.preventDefault();
-        const {dispatch} = this.props;
-        const user = this.state.loginName
-        dispatch(setAuthedUser(user))
-
-        console.log(from, user)
-        // this.props.history.push(from.pathname)
-        if (from !== null) {
-            // console.log(from.from.pathname)
-            // this.props.history.push('/leaderboard')
-            // this.props.history.push('/questions/am8ehyc8byjqgar0jgpub9')
-            // this.props.history.push(from.from.pathname)
-            // this.props.history.push({
-            //     pathname: from.from.pathname,
-            //     state: {isAuthed: true}
-            // })
-
-        } else {
-            // this.props.history.push('/')
-        }
-
     }
 
 
@@ -64,14 +30,12 @@ class Login extends Component {
 
     render() {
         const {users, userIds} = this.props;
-        // const {from} = this.props.location.state
         // console.log(this.props.location.state)
         console.log(users, userIds, this.props);
 
         return (
 
             <form className='login'>
-
                 <h3>Sign In</h3>
 
                 <select onChange={this.handleLoginChange}>
@@ -87,7 +51,6 @@ class Login extends Component {
 
 
                 <br/>
-                {/*<button type="submit" className="submit-question" onClick={(e) => this.login(e, this.props.location.state)}>Sign in</button>*/}
                 <button type="submit" className="submit-question" onClick={this.login}>Sign in</button>
             </form>
         );

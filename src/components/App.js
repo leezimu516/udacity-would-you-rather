@@ -3,14 +3,12 @@ import '../App.css';
 import {handleInitialData} from '../actions/shared';
 import {connect} from 'react-redux'
 import Dashboard from "./Dashboard";
-import {BrowserRouter, Route, Router} from "react-router-dom";
-import AnswerPoll from "./AnswerPoll";
+import {BrowserRouter, Route} from "react-router-dom";
 import Nav from "./Nav";
 import LeaderBoard from "./LeaderBoard";
 import NewQuestion from "./NewQuestion";
 import Poll from "./Poll";
 import Login from "./Login";
-import PrivateRoute from "./PrivateRoute";
 
 
 class App extends Component {
@@ -33,18 +31,10 @@ class App extends Component {
                     {signedIn === false
                         ? <Login/> :
                         <div>
-                            {/*<Route path='/' exact component={Dashboard}/>*/}
-                            {/*/!*<Route path='/questions/:id' exact component={AnswerPoll}/>*!/*/}
-                            {/*<Route path='/questions/:id' exact component={Poll}/>*/}
-                            {/*<Route path='/leaderboard' exact component={LeaderBoard}/>*/}
-                            {/*<Route path='/new' exact component={NewQuestion}/>*/}
-                            {/*<Route path='/logout' exact component={Login}/>*/}
-
-                            <PrivateRoute  authed={authed} path='/' exact={true} component={Dashboard} />
-                            <PrivateRoute  authed={authed} path='/questions/:id' exact={true} component={Poll} />
-                            <PrivateRoute  authed={authed} path='/leaderboard' exact={true} component={LeaderBoard} />
-                            <PrivateRoute  authed={authed} path='/new' exact={true} component={NewQuestion} />
-                            {/*<Route path='/logout' exact component={Login}/>*/}
+                            <Route path='/' exact component={Dashboard}/>
+                            <Route path='/questions/:id' exact component={Poll}/>
+                            <Route path='/leaderboard' exact component={LeaderBoard}/>
+                            <Route path='/new' exact component={NewQuestion}/>
 
                         </div>
                     }

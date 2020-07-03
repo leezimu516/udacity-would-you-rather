@@ -2,11 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {formatPool, formatDate} from "../utils/helpers";
 import {Link} from 'react-router-dom'
-import {saveQuestionAnswer} from '../utils/api'
 import {handleSumbitAnswer} from "../actions/questions";
-import NewQuestion from "./NewQuestion";
-import PrivateRoute from "./PrivateRoute";
-import Login from "./Login";
 
 class Question extends Component {
     constructor() {
@@ -42,7 +38,6 @@ class Question extends Component {
             return (
                 <div>
                     <p>this question doesnt exist</p>
-                    {/*<PrivateRoute  authed={false} path='/logout' exact={true} component={Login}/>*/}
                 </div>
 
             )
@@ -54,7 +49,9 @@ class Question extends Component {
         return (
 
             <div className='question'>
-                { id===undefined && <PrivateRoute  authed={false} path='/logout' exact={true} component={Login} />}
+                { id===undefined &&  <div>
+                    <p>this question doesnt exist</p>
+                </div>}
                 <div className='question-row'>
                     <span>{name} asks:</span>
                 </div>
@@ -109,7 +106,9 @@ class Question extends Component {
                                         <label htmlFor={optionTwoText}>{optionTwoText}</label>
                                     </div>
 
-                                </div> :
+                                </div>
+
+                                :
 
                                 <div>
                                     ...{optionOneText} ...

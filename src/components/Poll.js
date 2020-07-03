@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {formatPool, formatDate} from "../utils/helpers";
-import {Link} from 'react-router-dom'
-import {saveQuestionAnswer} from '../utils/api'
+import {formatPool} from "../utils/helpers";
 import {handleSumbitAnswer} from "../actions/questions";
 import Question from "./Question";
 import AnswerPoll from "./AnswerPoll";
-import Login from "./Login";
 import {Redirect} from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
 
 
 class Poll extends Component {
@@ -41,68 +37,32 @@ class Poll extends Component {
 
 
         const {question, authedUserReducer, questionId, isPoll, isSubmit} = this.props;
-        let id = questionId
         if (question === null) {
             return (
                 <p>this question doesnt exist</p>
             )
         }
-        let isAuthedFromOutside = false
-        if ( this.props.location.state !== undefined) {
-            isAuthedFromOutside = this.props.location.state.isAuthed
-        }
 
         return (
 
             <div className='poll-container'>
-                {console.log(questionId, isPoll, isSubmit, isAuthedFromOutside)}
+                {console.log(questionId, isPoll, isSubmit)}
+                {isPoll === false
+                && <Question id={questionId} isSubmit={true}/>}
 
-                { isAuthedFromOutside=== true ?
-                    <div>404</div>
-                    :
-                    <div>
-                        {isPoll === false
-                        && <Question id={questionId} isSubmit={true}/>}
+                {isPoll === true
+                && <AnswerPoll id={questionId}/>}
 
-                        {isPoll === true
-                        && <AnswerPoll id={questionId}/>}
+                {isSubmit === true
+                && <AnswerPoll id={questionId}/>}
 
-                        {isSubmit === true
-                        && <AnswerPoll id={questionId}/>}
-
-                        {/*log out and 404*/}
-                        {(isPoll === null || questionId)
-                        &&
-                        <div>
-
-                            {/*<PrivateRoute  authed={false} path='/questions/:id' exact={true} component={Poll} />*/}
-                            <Redirect to={{pathname: '/logout', state: {from: this.props.location}}}/>
-                            404
-                        </div>
-                        }
-
-
-                    </div>
+                {/*log out and 404*/}
+                {(isPoll === null)
+                &&
+                <div>
+                    404
+                </div>
                 }
-                {/*{isPoll === false*/}
-                {/*&& <Question id={questionId} isSubmit={true}/>}*/}
-
-                {/*{isPoll === true*/}
-                {/*&& <AnswerPoll id={questionId}/>}*/}
-
-                {/*{isSubmit === true*/}
-                {/*&& <AnswerPoll id={questionId}/>}*/}
-
-                {/*/!*log out and 404*!/*/}
-                {/*{(isPoll === null || questionId)*/}
-                {/*&&*/}
-                {/*<div>*/}
-
-                {/*/!*<PrivateRoute  authed={false} path='/questions/:id' exact={true} component={Poll} />*!/*/}
-                {/*<Redirect to={{pathname: '/logout', state: {from: this.props.location, isQuestion: true}}}/>*/}
-                {/*404*/}
-                {/*</div>*/}
-                {/*}*/}
 
             </div>
 
@@ -118,7 +78,7 @@ function isEmpty(obj) {
 
 function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, props) {
     // console.log(isPoll, props)
-    const {id} = props.match.params
+    const {id} = props.match.params;
     console.log(id, questionsReducer, questionsReducer === {})
     if (isEmpty(questionsReducer)) {
         return {
@@ -147,7 +107,7 @@ function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, pro
         isSubmit = props.location.pollProps.isSubmit
     }
 
-    console.log(isPoll, isSubmit)
+    console.log(isPoll, isSubmit);
 
     return {
         user: authedUserReducer,

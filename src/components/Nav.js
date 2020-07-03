@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {NavLink} from 'react-router-dom'
 import {setAuthedUser} from "../actions/authedUser";
 import { connect } from 'react-redux';
+import Button from "react-bootstrap/Button";
 
 
 class Nav extends Component {
@@ -48,7 +49,7 @@ class Nav extends Component {
                                 className='nav-avatar'/>
 
                             <li>
-                                <span onClick={this.handleLogout}>Logout</span>
+                                <Button variant="outline-primary" onClick={this.handleLogout}>Logout</Button>
 
                             </li>
 

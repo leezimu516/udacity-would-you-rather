@@ -53,6 +53,7 @@ a {
   justify-content: flex-start;
   text-decoration: none;
   align-items: center;
+  width: 100%
 }
 
 .nav-answer ul {
