@@ -48,12 +48,12 @@ class Dashboard extends Component {
                     {this.state.isAnswered ?
                         userAnsweredQuestionIds.map((id) => (
                             <li key={id}>
-                                <Question id={id} isPoll={true}/>
+                                <Question id={id} isPoll={true} detail={false}/>
                             </li>
                         )) :
                         userUnAnsweredQuestionIds.map((id) => (
                             <li key={id}>
-                                <Question id={id} isPoll={false} isSubmit={false}/>
+                                <Question id={id} isPoll={false} isSubmit={false} detail={false}/>
                             </li>
                         ))
                     }
@@ -68,22 +68,6 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps({questionsReducer, authedUserReducer, usersReducer}) {
-    // console.log(authedUserReducer)
-    // const answeredQuestions = Object.assign({}, ...Object.entries(questionsReducer).filter(
-    //     ([id, question]) => {
-    //         const isAnswered = question.optionOne.votes.length !== 0 || question.optionTwo.votes.length !== 0
-    //         // console.log(id, question, isAnswered, question.optionOne.votes.length.l)
-    //         return isAnswered
-    //     }
-    // ).map(([id, question]) => ({[id]:question})));
-    //
-    // const unAnsweredQuestions = Object.assign({}, ...Object.entries(questionsReducer).filter(
-    //     ([id, question]) => {
-    //         const isAnswered = question.optionOne.votes.length === 0 && question.optionTwo.votes.length === 0
-    //         return isAnswered
-    //     }
-    // ).map(([id, question]) => ({[id]:question})));
-
     if (authedUserReducer !== '') {
         const orderQuestions = (input) => (
             Object.keys(input).sort((a, b) => input[b].timestamp - input[a].timestamp)

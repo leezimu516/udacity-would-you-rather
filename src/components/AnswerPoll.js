@@ -50,12 +50,6 @@ class AnswerPoll extends Component {
                             }
 
                             <span>Would you Rather {optionOneText}?</span>
-                            {/*<div className='bar'>*/}
-                                {/*<ProgressBar*/}
-                                    {/*style={{width: voteOne, backgroundColor: 'greenyellow'}}>*/}
-                                    {/*<span className='sr-only'>{voteOne} Complete</span>*/}
-                                {/*</ProgressBar>*/}
-                            {/*</div>*/}
                             <ProgressBar now={voteOne} label={`${voteOne}%`} />
                             {optionOneVotes} out of {totalVotes} votes
 
@@ -67,12 +61,6 @@ class AnswerPoll extends Component {
                                 userAnswer === 'optionTwo' &&
                                 <span className='answer-circle'>Your Vote</span>
                             }
-                            {/*<div className='bar'>*/}
-                                {/*<ProgressBar className='bar'*/}
-                                             {/*style={{width: voteTwo, backgroundColor: 'greenyellow'}}>*/}
-                                    {/*<span className='sr-only'>{voteTwo} Complete</span>*/}
-                                {/*</ProgressBar>*/}
-                            {/*</div>*/}
                             <ProgressBar now={voteTwo} label={`${voteTwo}%`} />
                             {optionTwoVotes} out of {totalVotes} votes
 
@@ -90,8 +78,6 @@ class AnswerPoll extends Component {
 }
 
 function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, {id}) {
-    // console.log(props.match.params)
-    // const {id} = props.match.params
     const question = questionsReducer[id];
 
     return {

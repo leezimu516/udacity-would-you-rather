@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {formatPool} from "../utils/helpers";
 import Question from "./Question";
@@ -13,17 +13,6 @@ class Poll extends Component {
         };
     }
 
-    // handleSubmit = (e) => {
-    //     // e.preventDefault();
-    //
-    //     const {dispatch, question, authedUserReducer, questionId} = this.props;
-    //     const answer = this.state.answer;
-    //     const qid = question.id;
-    //     const authedUser = authedUserReducer;
-    //     dispatch(handleSumbitAnswer({authedUser, qid, answer}))
-    //
-    // }
-
     onChangeValue = (e) => {
         this.setState({answer: e.target.value});
         console.log(e.target.value)
@@ -34,33 +23,26 @@ class Poll extends Component {
     render() {
 
 
-        const {question, questionId, isPoll, isSubmit} = this.props;
-        if (question === null) {
-            return (
-                <p>this question doesnt exist</p>
-            )
-        }
+        const {question, questionId, isPoll} = this.props;
 
         return (
 
             <div className='poll-container'>
-                {console.log(questionId, isPoll, isSubmit)}
-                {isPoll === false
-                && <Question id={questionId} isSubmit={true}/>}
+                {/*{console.log(questionId, isPoll, isSubmit)}*/}
+                {question === null ?
+                    <h1>404: this page doesnt exist</h1>
+                    :
+                    <Fragment>
 
-                {isPoll === true
-                && <AnswerPoll id={questionId}/>}
+                        {isPoll ?
+                            <AnswerPoll id={questionId}/>
+                            :
+                            <Question id={questionId} detail={true}/>
+                        }
+                    </Fragment>
 
-                {isSubmit === true
-                && <AnswerPoll id={questionId}/>}
-
-                {/*log out and 404*/}
-                {(isPoll === null)
-                &&
-                <div>
-                    404
-                </div>
                 }
+
 
             </div>
 
@@ -70,42 +52,29 @@ class Poll extends Component {
 }
 
 
-function isEmpty(obj) {
-    return Object.keys(obj).length === 0;
-}
-
 function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, props) {
-    // console.log(isPoll, props)
     const {id} = props.match.params;
     console.log(id, questionsReducer, questionsReducer === {})
-    if (isEmpty(questionsReducer)) {
+
+    const question = questionsReducer[id];
+    console.log(question)
+    if (question === undefined) {
         return {
             user: authedUserReducer,
             question: null,
             users: usersReducer,
             questionId: id,
-            isPoll: null,
-            isSubmit: false
-
+            isPoll: false
         }
     }
 
-    const question = questionsReducer[id];
+    const userAnsweredQuestionIdsRaw = Object.keys(usersReducer[authedUserReducer].answers);
+    const userAnsweredQuestionIds = Object.keys(questionsReducer).filter((id) => (userAnsweredQuestionIdsRaw.includes(id)))
 
-    let isPoll = null;
-    console.log('question component', props);
-    const isFromQuestionPage = props.location.pollProps !== undefined;
-    if (isFromQuestionPage) {
-        isPoll = props.location.pollProps.isPoll
-    }
+    console.log(id, userAnsweredQuestionIds)
+    let isPoll = userAnsweredQuestionIds.includes(id)
+    console.log(isPoll);
 
-    let isSubmit = null;
-    const isSubmitFromQuestionPage = props.location.pollProps !== undefined;
-    if (isSubmitFromQuestionPage) {
-        isSubmit = props.location.pollProps.isSubmit
-    }
-
-    console.log(isPoll, isSubmit);
 
     return {
         user: authedUserReducer,
@@ -113,7 +82,6 @@ function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, pro
         users: usersReducer,
         questionId: id,
         isPoll,
-        isSubmit
 
     }
 }

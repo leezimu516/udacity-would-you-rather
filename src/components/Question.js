@@ -13,7 +13,6 @@ class Question extends Component {
     }
 
     handleSubmit = (e) => {
-        // e.preventDefault();
         const {dispatch, question, authedUserReducer} = this.props;
         const answer = this.state.answer;
         const qid = question.id;
@@ -35,10 +34,9 @@ class Question extends Component {
 
 
     render() {
-        // console.log('question component', this.props);
 
-        const {question, id} = this.props;
-        console.log('question: ', question);
+        const {question, id, detail} = this.props;
+        console.log('question: ', question, id, detail);
         if (question === null) {
             return (
                 <div>
@@ -49,7 +47,6 @@ class Question extends Component {
         }
 
         const {name, optionOneText, optionTwoText, avatar,} = question;
-        // console.log(id, name, timestamp, optionOneText, optionTwoText, avatar);
         console.log(id)
         return (
 
@@ -73,7 +70,40 @@ class Question extends Component {
                     </div>
 
 
-                    {this.props.isPoll ?
+                    {detail ?
+
+                        <form className="question-column-right"
+                              onChange={this.onChangeValue}>
+                            <h2>Would You Rather ...</h2>
+
+
+                            <div>
+                                <div>
+                                    <input type="radio" id="optionOne" name={id} value='optionOne'/>
+                                    <label htmlFor={optionOneText}>{optionOneText}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="optionTwo" name={id} value='optionTwo'/>
+                                    <label htmlFor={optionTwoText}>{optionTwoText}</label>
+                                </div>
+
+                            </div>
+
+
+                            <div className='question-button'>
+                                <Link to={
+                                    {
+                                        pathname: `/questions/${id}`,
+                                    }}>
+                                    <button className='submit-question' onClick={this.handleSubmit}>View
+                                    Poll
+                                </button>
+                                </Link>
+
+                            </div>
+
+                        </form>
+                        :
                         <form className="question-column-right"
                               onChange={this.onChangeValue}>
                             <h2>Would You Rather ...</h2>
@@ -86,7 +116,6 @@ class Question extends Component {
                                 <Link to={
                                     {
                                         pathname: `/questions/${id}`,
-                                        pollProps: {isPoll: this.props.isPoll, isSubmit: this.props.isSubmit}
                                     }}>
                                     <button className='submit-question'>View Poll</button>
                                 </Link>
@@ -94,71 +123,7 @@ class Question extends Component {
                             </div>
                         </form>
 
-                        :
 
-                        <form className="question-column-right"
-                              onChange={this.onChangeValue}>
-                            <h2>Would You Rather ...</h2>
-
-                            {this.props.isSubmit ?
-                                <div>
-                                    <div>
-                                        <input type="radio" id="optionOne" name={id} value='optionOne'/>
-                                        <label htmlFor={optionOneText}>{optionOneText}</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="optionTwo" name={id} value='optionTwo'/>
-                                        <label htmlFor={optionTwoText}>{optionTwoText}</label>
-                                    </div>
-
-                                </div>
-
-                                :
-
-                                <div>
-                                    ...{optionOneText} ...
-                                </div>
-
-                            }
-
-
-                            <div className='question-button'>
-                                {this.state.answer === '' ?
-                                    <div>
-                                        <Link to={
-                                            {
-                                                pathname: `/questions/${id}`,
-                                                pollProps: {isPoll: false, isSubmit: false}
-                                            }}>
-                                            {console.log('issubmit', this.props.isSubmit, this.props.isPoll)}
-                                            {this.props.isSubmit ?
-                                                <button className='submit-question' onClick={this.handleSubmit}>View
-                                                    Poll</button>
-                                                :
-                                                <button className='submit-question'>View
-                                                    Poll</button>
-                                            }
-                                        </Link>
-                                    </div>
-                                    :
-                                    <Link to={
-                                        {
-                                            pathname: `/questions/${id}`,
-                                            pollProps: {isPoll: this.props.isPoll, isSubmit: this.props.isSubmit}
-                                        }}>
-                                        {console.log('issubmit', this.props.isSubmit, this.props.isPoll)}
-                                        {this.props.isSubmit ?
-                                            <button className='submit-question' onClick={this.handleSubmit}>View
-                                                Poll</button>
-                                            :
-                                            <button className='submit-question'>View
-                                                Poll</button>
-                                        }
-                                    </Link>
-                                }
-                            </div>
-
-                        </form>
                     }
 
 
@@ -170,9 +135,8 @@ class Question extends Component {
     }
 }
 
-function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, {id, isPoll}) {
+function mapStateToProp({authedUserReducer, usersReducer, questionsReducer}, {id}) {
     if (id !== undefined) {
-        // alert(1111)
         const question = questionsReducer[id];
         return {
             authedUserReducer,
