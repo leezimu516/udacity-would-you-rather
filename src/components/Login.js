@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {setAuthedUser} from "../actions/authedUser";
-import ProgressBar from "react-bootstrap/ProgressBar";
 
 class Login extends Component {
 

@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {formatPool} from "../utils/helpers";
-import {handleSumbitAnswer} from "../actions/questions";
 import Question from "./Question";
 import AnswerPoll from "./AnswerPoll";
-import {Redirect} from "react-router-dom";
 
 
 class Poll extends Component {
@@ -15,16 +13,16 @@ class Poll extends Component {
         };
     }
 
-    handleSubmit = (e) => {
-        // e.preventDefault();
-
-        const {dispatch, question, authedUserReducer, questionId} = this.props;
-        const answer = this.state.answer;
-        const qid = question.id;
-        const authedUser = authedUserReducer;
-        dispatch(handleSumbitAnswer({authedUser, qid, answer}))
-
-    }
+    // handleSubmit = (e) => {
+    //     // e.preventDefault();
+    //
+    //     const {dispatch, question, authedUserReducer, questionId} = this.props;
+    //     const answer = this.state.answer;
+    //     const qid = question.id;
+    //     const authedUser = authedUserReducer;
+    //     dispatch(handleSumbitAnswer({authedUser, qid, answer}))
+    //
+    // }
 
     onChangeValue = (e) => {
         this.setState({answer: e.target.value});
@@ -36,7 +34,7 @@ class Poll extends Component {
     render() {
 
 
-        const {question, authedUserReducer, questionId, isPoll, isSubmit} = this.props;
+        const {question, questionId, isPoll, isSubmit} = this.props;
         if (question === null) {
             return (
                 <p>this question doesnt exist</p>

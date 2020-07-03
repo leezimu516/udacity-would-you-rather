@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {formatPool, formatDate} from "../utils/helpers";
+import {formatPool} from "../utils/helpers";
 import {Link} from 'react-router-dom'
 import {handleSumbitAnswer} from "../actions/questions";
 
@@ -48,7 +48,7 @@ class Question extends Component {
             )
         }
 
-        const {name, timestamp, optionOneText, optionTwoText, avatar,} = question;
+        const {name, optionOneText, optionTwoText, avatar,} = question;
         // console.log(id, name, timestamp, optionOneText, optionTwoText, avatar);
         console.log(id)
         return (

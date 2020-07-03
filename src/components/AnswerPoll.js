@@ -14,8 +14,8 @@ class AnswerPoll extends Component {
         }
         console.log(question)
         const {id, name, optionOneVotes, optionOneText, optionTwoVotes, optionTwoText, totalVotes, avatar,} = question;
-        const voteOne = parseInt(optionOneVotes / totalVotes * 100);
-        const voteTwo = parseInt(optionTwoVotes / totalVotes * 100);
+        const voteOne = parseInt(optionOneVotes / totalVotes * 100, 10);
+        const voteTwo = parseInt(optionTwoVotes / totalVotes * 100, 10);
         // const voteOne = `${parseInt(optionOneVotes / totalVotes * 100)}%`;
         // const voteTwo = `${parseInt(optionTwoVotes / totalVotes * 100)}%`;
 
